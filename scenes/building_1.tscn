@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://ds785v17g1g3i"]
+
+[ext_resource type="Texture2D" uid="uid://don8ueplxycb7" path="res://assets/textures/Light/texture_07.png" id="1_8d5bg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q53kt"]
+albedo_texture = ExtResource("1_8d5bg")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_16dun"]
+material = SubResource("StandardMaterial3D_q53kt")
+size = Vector3(4, 10, 4)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_x17x7"]
+data = PackedVector3Array(-2, 5, 2, 2, 5, 2, -2, -5, 2, 2, 5, 2, 2, -5, 2, -2, -5, 2, 2, 5, -2, -2, 5, -2, 2, -5, -2, -2, 5, -2, -2, -5, -2, 2, -5, -2, 2, 5, 2, 2, 5, -2, 2, -5, 2, 2, 5, -2, 2, -5, -2, 2, -5, 2, -2, 5, -2, -2, 5, 2, -2, -5, -2, -2, 5, 2, -2, -5, 2, -2, -5, -2, 2, 5, 2, -2, 5, 2, 2, 5, -2, -2, 5, 2, -2, 5, -2, 2, 5, -2, -2, -5, 2, 2, -5, 2, -2, -5, -2, 2, -5, 2, 2, -5, -2, -2, -5, -2)
+
+[node name="Building1" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.624, 0)
+mesh = SubResource("BoxMesh_16dun")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_x17x7")

@@ -1,0 +1,110 @@
+[gd_scene load_steps=16 format=3 uid="uid://b5vsmtvkuhdkk"]
+
+[ext_resource type="PackedScene" uid="uid://dw7xhfjh0irkb" path="res://scenes/player.tscn" id="1_tc4m1"]
+[ext_resource type="Script" path="res://scenes/game.gd" id="1_wm7tu"]
+[ext_resource type="PackedScene" uid="uid://ds785v17g1g3i" path="res://scenes/building_1.tscn" id="2_u555w"]
+[ext_resource type="PackedScene" uid="uid://dh5ksxk761v26" path="res://scenes/npc.tscn" id="3_viknc"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f8a0a"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_on5o2"]
+sky_material = SubResource("ProceduralSkyMaterial_f8a0a")
+
+[sub_resource type="Environment" id="Environment_1n77g"]
+background_mode = 2
+sky = SubResource("Sky_on5o2")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_43xod"]
+albedo_color = Color(0.113517, 0.293836, 0.0572597, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1ewhn"]
+material = SubResource("StandardMaterial3D_43xod")
+size = Vector3(40, 0.1, 40)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hr08d"]
+size = Vector3(40, 0.1, 40)
+
+[sub_resource type="BoxMesh" id="BoxMesh_b657q"]
+size = Vector3(4, 7.89, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1kfjq"]
+albedo_color = Color(0.972653, 0.673126, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qq82a"]
+material = SubResource("StandardMaterial3D_1kfjq")
+size = Vector3(4, 10, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_es50q"]
+albedo_color = Color(0.867657, 0.819132, 1.15514e-06, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_afnoo"]
+material = SubResource("StandardMaterial3D_es50q")
+size = Vector3(4, 12.34, 4)
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_wm7tu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.865032, -0.467095, 0.183144, -0.182071, 0.632405, 0.752937, -0.467514, 0.617969, -0.632095, -0.518717, 4.14284, -11.1521)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_1n77g")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_1ewhn")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_hr08d")
+
+[node name="Player" parent="." instance=ExtResource("1_tc4m1")]
+
+[node name="Stage" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Buildings" type="Node3D" parent="Stage"]
+
+[node name="Building1" parent="Stage/Buildings" instance=ExtResource("2_u555w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.8584, 4.624, 5.6206e-07)
+
+[node name="Building5" parent="Stage/Buildings" instance=ExtResource("2_u555w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.6604, 4.624, -4.65979e-07)
+
+[node name="Building2" type="MeshInstance3D" parent="Stage/Buildings"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.2813, 3.81684, -5.74936)
+mesh = SubResource("BoxMesh_b657q")
+
+[node name="Building3" type="MeshInstance3D" parent="Stage/Buildings"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.2813, 4.62393, -10.9707)
+mesh = SubResource("BoxMesh_qq82a")
+
+[node name="Building4" type="MeshInstance3D" parent="Stage/Buildings"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.2813, 4.62393, 5.59172)
+mesh = SubResource("BoxMesh_afnoo")
+
+[node name="NPC" parent="." instance=ExtResource("3_viknc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.35447, -4)
+
+[node name="Dialogue" type="RichTextLabel" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -248.0
+offset_top = -151.0
+offset_right = 248.0
+offset_bottom = -39.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[connection signal="body_entered" from="NPC/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="NPC/Area3D" to="." method="_on_area_3d_body_exited"]
+
+[editable path="NPC"]

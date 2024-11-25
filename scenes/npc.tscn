@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dh5ksxk761v26"]
+
+[ext_resource type="PackedScene" uid="uid://dwt6mqfmpxa2q" path="res://assets/models/characters/character-male-c.glb" id="1_2x6w7"]
+[ext_resource type="Script" path="res://scenes/npc.gd" id="1_dct6j"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3tgc1"]
+radius = 0.176649
+height = 0.691584
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_hvp2s"]
+height = 0.279522
+radius = 0.83596
+
+[node name="NPC" type="CharacterBody3D"]
+script = ExtResource("1_dct6j")
+
+[node name="character-male-c2" parent="." instance=ExtResource("1_2x6w7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.312667, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_3tgc1")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CylinderShape3D_hvp2s")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ca7upue3mtmy0"]
 
-[ext_resource type="Script" path="res://main_menu.gd" id="1_mxbcc"]
+[ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_mxbcc"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3

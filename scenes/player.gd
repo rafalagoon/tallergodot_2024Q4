@@ -6,6 +6,16 @@ const JUMP_VELOCITY = 4.5
 
 var jumping:bool = false
 
+var angle = 0.0
+
+
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("game_fire"):
+		var bullet:Node3D = $ResourcePreloader.get_resource("bala").instantiate()
+		get_parent().add_child(bullet)
+		
+		bullet.global_position = global_position
+		bullet.global_rotation = global_rotation
 
 
 func _physics_process(delta: float) -> void:
@@ -24,7 +34,12 @@ func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var direction := (transform.basis * Vector3(0, 0, input_dir.y)).normalized()
+
+	angle -= input_dir.x
+
+	rotation_degrees.y = angle
+
 	if direction:
 		if not jumping:
 			$Body/AnimationPlayer.play("walk")

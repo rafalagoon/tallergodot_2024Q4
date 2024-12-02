@@ -12,10 +12,18 @@ height = 0.279522
 radius = 0.83596
 
 [node name="NPC" type="CharacterBody3D"]
+collision_layer = 9
 script = ExtResource("1_dct6j")
 
-[node name="character-male-c2" parent="." instance=ExtResource("1_2x6w7")]
+[node name="Body" parent="." instance=ExtResource("1_2x6w7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.312667, 0)
+
+[node name="Skeleton3D" parent="Body/character-male-c" index="0"]
+bones/4/rotation = Quaternion(0, 0, -0.382683, 0.92388)
+bones/5/rotation = Quaternion(0, 0, 0.382683, 0.92388)
+
+[node name="AnimationPlayer" parent="Body" index="1"]
+autoplay = "idle"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_3tgc1")
@@ -28,3 +36,5 @@ collision_mask = 2
 shape = SubResource("CylinderShape3D_hvp2s")
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+
+[editable path="Body"]

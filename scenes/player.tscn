@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dw7xhfjh0irkb"]
+[gd_scene load_steps=5 format=3 uid="uid://dw7xhfjh0irkb"]
 
 [ext_resource type="Script" path="res://scenes/player.gd" id="1_l2jna"]
 [ext_resource type="PackedScene" uid="uid://bov86dymj1u3x" path="res://assets/models/characters/character-female-e.glb" id="2_lan3m"]
+[ext_resource type="PackedScene" uid="uid://cat7c37oxki5" path="res://scenes/bullet.tscn" id="3_sc5ek"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vbwla"]
 radius = 0.32953
@@ -15,19 +16,14 @@ script = ExtResource("1_l2jna")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_vbwla")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.470088, 0.88262, 0, -0.88262, 0.470088, 0, 6.25195, 2.55286)
-
 [node name="Body" parent="." instance=ExtResource("2_lan3m")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.617899, 0)
 
 [node name="Skeleton3D" parent="Body/character-female-e" index="0"]
-bones/0/position = Vector3(0, 0.0282547, 0)
-bones/1/rotation = Quaternion(-0.38146, 0, 0, 0.924385)
-bones/2/rotation = Quaternion(0.38146, 0, 0, 0.924385)
-bones/3/rotation = Quaternion(0, -0.0739033, 0, 0.997265)
-bones/4/rotation = Quaternion(-0.0516108, 0.213986, -0.236737, 0.94631)
-bones/5/rotation = Quaternion(0.0516108, 0.213986, 0.236737, 0.94631)
-bones/6/rotation = Quaternion(0, 0.0492938, 0, 0.998784)
+bones/4/rotation = Quaternion(0, 0, -0.382683, 0.92388)
+bones/5/rotation = Quaternion(0, 0, 0.382683, 0.92388)
+
+[node name="ResourcePreloader" type="ResourcePreloader" parent="."]
+resources = [PackedStringArray("bala"), [ExtResource("3_sc5ek")]]
 
 [editable path="Body"]

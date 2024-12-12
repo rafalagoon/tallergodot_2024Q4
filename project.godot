@@ -15,6 +15,10 @@ run/main_scene="res://scenes/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Globals="*res://scenes/globals.tscn"
+
 [input]
 
 game_fire={
@@ -27,3 +31,8 @@ game_fire={
 
 3d_physics/layer_1="Colisiones"
 3d_physics/layer_4="NPCs (malos)"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

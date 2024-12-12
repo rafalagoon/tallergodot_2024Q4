@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://b5vsmtvkuhdkk"]
+[gd_scene load_steps=17 format=3 uid="uid://b5vsmtvkuhdkk"]
 
 [ext_resource type="PackedScene" uid="uid://dw7xhfjh0irkb" path="res://scenes/player.tscn" id="1_tc4m1"]
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_wm7tu"]
 [ext_resource type="PackedScene" uid="uid://ds785v17g1g3i" path="res://scenes/building_1.tscn" id="2_u555w"]
 [ext_resource type="PackedScene" uid="uid://dh5ksxk761v26" path="res://scenes/npc.tscn" id="3_viknc"]
+[ext_resource type="Script" path="res://scenes/enemies.gd" id="4_kdyhf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f8a0a"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -97,9 +98,6 @@ mesh = SubResource("BoxMesh_qq82a")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.2813, 4.62393, 5.59172)
 mesh = SubResource("BoxMesh_afnoo")
 
-[node name="NPC" parent="." instance=ExtResource("3_viknc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.36627, 0.505319, -4)
-
 [node name="Dialogue" type="RichTextLabel" parent="."]
 anchors_preset = 7
 anchor_left = 0.5
@@ -113,8 +111,91 @@ offset_bottom = -39.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[connection signal="body_entered" from="NPC/Area3D" to="." method="_on_area_3d_body_entered"]
-[connection signal="body_exited" from="NPC/Area3D" to="." method="_on_area_3d_body_exited"]
+[node name="Enemies" type="Node3D" parent="."]
+script = ExtResource("4_kdyhf")
 
-[editable path="NPC"]
-[editable path="NPC/Body"]
+[node name="NPC" parent="Enemies" instance=ExtResource("3_viknc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.36627, 0.505319, -4)
+
+[node name="NPC2" parent="Enemies" instance=ExtResource("3_viknc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.72156, 0.505319, -4)
+
+[node name="NPC3" parent="Enemies" instance=ExtResource("3_viknc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.365233, 0.505319, -4)
+
+[node name="NPC4" parent="Enemies" instance=ExtResource("3_viknc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90377, 0.505319, -4)
+
+[node name="NPC5" parent="Enemies" instance=ExtResource("3_viknc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.90377, 0.505319, -1.85976)
+
+[node name="NPC6" parent="Enemies" instance=ExtResource("3_viknc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.12525, 0.505319, -1.85976)
+
+[node name="NPC7" parent="Enemies" instance=ExtResource("3_viknc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.63909, 0.505319, -1.85976)
+
+[node name="NPC8" parent="Enemies" instance=ExtResource("3_viknc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.43132, 0.505319, -1.85976)
+
+[node name="NPC9" parent="Enemies" instance=ExtResource("3_viknc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.43132, 0.505319, -5.86053)
+
+[node name="NPC10" parent="Enemies" instance=ExtResource("3_viknc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52063, 0.505319, -5.86053)
+
+[node name="EnemyCounter" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -65.0
+offset_right = 65.0
+offset_bottom = 73.0
+grow_horizontal = 2
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 48
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="body_entered" from="Enemies/NPC/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Enemies/NPC/Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="Enemies/NPC2/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Enemies/NPC2/Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="Enemies/NPC3/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Enemies/NPC3/Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="Enemies/NPC4/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Enemies/NPC4/Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="Enemies/NPC5/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Enemies/NPC5/Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="Enemies/NPC6/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Enemies/NPC6/Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="Enemies/NPC7/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Enemies/NPC7/Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="Enemies/NPC8/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Enemies/NPC8/Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="Enemies/NPC9/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Enemies/NPC9/Area3D" to="." method="_on_area_3d_body_exited"]
+[connection signal="body_entered" from="Enemies/NPC10/Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Enemies/NPC10/Area3D" to="." method="_on_area_3d_body_exited"]
+
+[editable path="Enemies/NPC"]
+[editable path="Enemies/NPC/Body"]
+[editable path="Enemies/NPC2"]
+[editable path="Enemies/NPC2/Body"]
+[editable path="Enemies/NPC3"]
+[editable path="Enemies/NPC3/Body"]
+[editable path="Enemies/NPC4"]
+[editable path="Enemies/NPC4/Body"]
+[editable path="Enemies/NPC5"]
+[editable path="Enemies/NPC5/Body"]
+[editable path="Enemies/NPC6"]
+[editable path="Enemies/NPC6/Body"]
+[editable path="Enemies/NPC7"]
+[editable path="Enemies/NPC7/Body"]
+[editable path="Enemies/NPC8"]
+[editable path="Enemies/NPC8/Body"]
+[editable path="Enemies/NPC9"]
+[editable path="Enemies/NPC9/Body"]
+[editable path="Enemies/NPC10"]
+[editable path="Enemies/NPC10/Body"]

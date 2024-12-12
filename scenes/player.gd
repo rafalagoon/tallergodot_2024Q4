@@ -9,6 +9,10 @@ var jumping:bool = false
 var angle = 0.0
 
 
+func _ready() -> void:
+	Globals.Player = self
+
+
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("game_fire"):
 		var bullet:Node3D = $ResourcePreloader.get_resource("bala").instantiate()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dh5ksxk761v26"]
+[gd_scene load_steps=12 format=3 uid="uid://dh5ksxk761v26"]
 
 [ext_resource type="PackedScene" uid="uid://dwt6mqfmpxa2q" path="res://assets/models/characters/character-male-c.glb" id="1_2x6w7"]
 [ext_resource type="Script" path="res://scenes/npc.gd" id="1_dct6j"]
@@ -11,12 +11,44 @@ height = 0.691584
 height = 0.279522
 radius = 0.83596
 
+[sub_resource type="Curve" id="Curve_giq2o"]
+_data = [Vector2(0.0602941, 0.314402), 0.0, 0.0, 0, 0, Vector2(0.142647, 0.86288), 0.0, 0.0, 0, 0, Vector2(0.719118, 0.789047), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_5q40y"]
+curve = SubResource("Curve_giq2o")
+
+[sub_resource type="Gradient" id="Gradient_2ktbr"]
+offsets = PackedFloat32Array(0.158879, 0.345794, 0.554517, 0.735202)
+colors = PackedColorArray(0.929412, 0, 0, 1, 0.898039, 0.435294, 0.0862745, 1, 0.945098, 0.698039, 0.0431373, 1, 0.0475577, 0.0475576, 0.0475576, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0cwl4"]
+gradient = SubResource("Gradient_2ktbr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_br8h3"]
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 4.0
+initial_velocity_max = 8.0
+color_ramp = SubResource("GradientTexture1D_0cwl4")
+alpha_curve = SubResource("CurveTexture_5q40y")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q5dwo"]
+transparency = 1
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_4b4ww"]
+material = SubResource("StandardMaterial3D_q5dwo")
+radius = 0.05
+height = 0.1
+radial_segments = 8
+rings = 4
+
 [node name="NPC" type="CharacterBody3D"]
 collision_layer = 9
 script = ExtResource("1_dct6j")
 
 [node name="Body" parent="." instance=ExtResource("1_2x6w7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.312667, 0)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, -0.312667, 0)
 
 [node name="Skeleton3D" parent="Body/character-male-c" index="0"]
 bones/4/rotation = Quaternion(0, 0, -0.382683, 0.92388)
@@ -35,6 +67,16 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("CylinderShape3D_hvp2s")
 
+[node name="Explosion" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 32
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_br8h3")
+draw_pass_1 = SubResource("SphereMesh_4b4ww")
+
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="finished" from="Explosion" to="." method="_on_explosion_finished"]
 
 [editable path="Body"]
